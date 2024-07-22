@@ -1,0 +1,23 @@
+What is laravel eager loading?
+Laravel eager loading is a technique used to optimize database queries by loading related models along with the
+main model in a single query, instead of loading them separately. This helps to prevent the "N+1 query problem,"
+where multiple database queries are executed to fetch related models, which can significantly degrade performance.
+
+Eg. 
+1.Basic Eager Loading:
+$posts = Post::with('comments')->get();
+
+2.Eager Loading Nested Relationships:
+$posts = Post::with('comments.author')->get();
+
+3.Constraining Eager Loading:
+$posts = Post::with(['comments' => function($query) {
+    $query->where('approved', true);
+}])->get();
+
+4.Eager Loading Multiple Relationships:
+$posts = Post::with('comments', 'tags', 'author')->get();
+
+
+Using eager loading can significantly improve the performance of your Laravel application, especially when dealing 
+with large datasets and complex relationships.
